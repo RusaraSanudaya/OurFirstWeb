@@ -1,13 +1,247 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    My first Webpage
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal portfolio of Rusara Sanudaya.">
+  <title>Rusara Sanudaya | Personal Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --surface: #111a2e;
+      --surface-2: #16223a;
+      --text: #edf2ff;
+      --muted: #a7b2ca;
+      --accent: #8b9cff;
+      --accent-2: #63e6be;
+      --line: rgba(255,255,255,.11);
+      --shadow: 0 24px 70px rgba(0,0,0,.28);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 80% 8%, rgba(99,230,190,.12), transparent 26rem),
+        radial-gradient(circle at 10% 30%, rgba(139,156,255,.13), transparent 30rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, calc(100% - 40px)); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(11,16,32,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-weight: 800; letter-spacing: -.04em; font-size: 1.08rem; }
+    .brand span { color: var(--accent-2); }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: .92rem; }
+    .nav-links a:hover { color: var(--text); }
+    .menu-button { display: none; border: 1px solid var(--line); color: var(--text); background: var(--surface); border-radius: 10px; padding: 8px 12px; }
+    .hero { min-height: 680px; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 55px; padding: 90px 0 100px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--accent-2); font-size: .82rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 25px; height: 1px; background: currentColor; }
+    h1 { font-size: clamp(3rem, 7vw, 5.8rem); line-height: .99; letter-spacing: -.065em; margin: 22px 0; }
+    h1 span { color: var(--accent); }
+    .hero-copy { color: var(--muted); max-width: 570px; font-size: 1.08rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 32px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 19px; border-radius: 12px; font-weight: 700; border: 1px solid var(--line); transition: transform .2s, background .2s; }
+    .button:hover { transform: translateY(-3px); }
+    .button.primary { color: #09111e; background: var(--accent-2); border-color: transparent; }
+    .button.secondary { background: rgba(255,255,255,.04); }
+    .visual { position: relative; min-height: 390px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: 330px; height: 330px; border: 1px solid rgba(139,156,255,.28); border-radius: 50%; }
+    .orbit::before, .orbit::after { content: ""; position: absolute; border: 1px solid rgba(99,230,190,.2); border-radius: 50%; inset: 27px; }
+    .orbit::after { inset: 58px; }
+    .profile-card { position: relative; width: min(290px, 85%); padding: 30px; border: 1px solid var(--line); border-radius: 26px; background: linear-gradient(145deg, rgba(26,39,66,.96), rgba(15,23,42,.96)); box-shadow: var(--shadow); text-align: center; }
+    .avatar { width: 112px; height: 112px; display: grid; place-items: center; margin: 0 auto 20px; border-radius: 50%; color: #0b1020; font-size: 2.1rem; font-weight: 900; letter-spacing: -.08em; background: linear-gradient(135deg, var(--accent-2), var(--accent)); box-shadow: 0 0 0 9px rgba(139,156,255,.08); }
+    .profile-card h2 { margin: 0; font-size: 1.3rem; }
+    .profile-card p { color: var(--muted); margin: 7px 0 0; font-size: .92rem; }
+    .floating-tag { position: absolute; padding: 9px 13px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-2); color: var(--text); font-size: .82rem; box-shadow: var(--shadow); }
+    .tag-one { top: 35px; right: 0; }
+    .tag-two { bottom: 35px; left: 0; }
+    section { padding: 85px 0; }
+    .section-heading { max-width: 650px; margin-bottom: 35px; }
+    .section-heading h2 { margin: 10px 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.05em; line-height: 1.1; }
+    .section-heading p { color: var(--muted); margin: 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .panel, .skill-card, .project-card, .contact-card { background: linear-gradient(145deg, rgba(22,34,58,.88), rgba(17,26,46,.88)); border: 1px solid var(--line); border-radius: 20px; padding: 27px; }
+    .panel p { color: var(--muted); margin: 0; }
+    .facts { display: grid; gap: 15px; }
+    .fact { display: flex; justify-content: space-between; gap: 18px; padding-bottom: 13px; border-bottom: 1px solid var(--line); }
+    .fact:last-child { border: 0; padding-bottom: 0; }
+    .fact span:first-child { color: var(--muted); }
+    .fact span:last-child { font-weight: 650; text-align: right; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .skill-card { padding: 22px; }
+    .skill-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; color: var(--accent-2); background: rgba(99,230,190,.1); font-size: 1.2rem; }
+    .skill-card h3 { margin: 15px 0 5px; font-size: 1.05rem; }
+    .skill-card p { color: var(--muted); margin: 0; font-size: .91rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .project-card { min-height: 190px; display: flex; flex-direction: column; justify-content: space-between; }
+    .project-card .number { color: var(--accent-2); font-size: .8rem; font-weight: 800; letter-spacing: .12em; }
+    .project-card h3 { margin: 18px 0 7px; font-size: 1.25rem; }
+    .project-card p { color: var(--muted); margin: 0; }
+    .project-note { margin-top: 18px; color: var(--muted); font-size: .85rem; }
+    .contact-card { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 35px; }
+    .contact-card h2 { margin: 0 0 8px; font-size: clamp(1.7rem, 4vw, 2.6rem); letter-spacing: -.05em; }
+    .contact-card p { color: var(--muted); margin: 0; }
+    footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: .88rem; }
+    footer .container { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    @media (max-width: 760px) {
+      .nav-links { display: none; position: absolute; top: 74px; left: 0; right: 0; padding: 20px; flex-direction: column; align-items: flex-start; background: #10182b; border-bottom: 1px solid var(--line); }
+      .nav-links.open { display: flex; }
+      .menu-button { display: inline-block; }
+      .hero { grid-template-columns: 1fr; gap: 20px; padding: 75px 0 60px; }
+      .visual { min-height: 350px; }
+      .about-grid, .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 65px 0; }
+      .contact-card { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 440px) {
+      .container { width: min(100% - 28px, 1100px); }
+      .skills-grid { grid-template-columns: 1fr; }
+      .orbit { width: 285px; height: 285px; }
+      .floating-tag { font-size: .75rem; }
+    }
+  </style>
 </head>
-
 <body>
-    Hi! 
-    This is my first website.
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="#home">RS<span>.</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#skills">Interests</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="menu-button" id="menuButton" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    </nav>
+  </header>
 
+  <main>
+    <section class="container hero" id="home">
+      <div>
+        <div class="eyebrow">Welcome to my portfolio</div>
+        <h1>Hi, I'm<br><span>Rusara Sanudaya.</span></h1>
+        <p class="hero-copy">I'm a student at Achievers Lanka Business School, currently pursuing ACCA. I'm building my knowledge, developing new skills, and exploring opportunities to grow.</p>
+        <div class="actions">
+          <a class="button primary" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+          <a class="button secondary" href="#about">Explore my profile</a>
+        </div>
+      </div>
+      <div class="visual" aria-label="Profile illustration">
+        <div class="orbit"></div>
+        <div class="profile-card">
+          <div class="avatar" aria-hidden="true">RS</div>
+          <h2>Rusara Sanudaya</h2>
+          <p>Student · ACCA</p>
+        </div>
+        <div class="floating-tag tag-one">✦ Always learning</div>
+        <div class="floating-tag tag-two">↗ Growing every day</div>
+      </div>
+    </section>
 
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">A little about me</div>
+          <h2>Learning today.<br>Building for tomorrow.</h2>
+          <p>A simple introduction to who I am and what I'm working towards.</p>
+        </div>
+        <div class="about-grid">
+          <div class="panel">
+            <p>I'm Rusara Sanudaya, a student at Achievers Lanka Business School and an ACCA student. I enjoy learning new things, improving my abilities, and taking on challenges that help me develop personally and professionally.</p>
+          </div>
+          <div class="panel facts">
+            <div class="fact"><span>Name</span><span>Rusara Sanudaya</span></div>
+            <div class="fact"><span>Education</span><span>Achievers Lanka Business School</span></div>
+            <div class="fact"><span>Qualification</span><span>ACCA</span></div>
+            <div class="fact"><span>Current focus</span><span>Learning & development</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">What I'm developing</div>
+          <h2>Interests & learning goals</h2>
+          <p>Areas I'm interested in exploring and improving. These can be updated as I gain experience.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card"><div class="skill-icon">▤</div><h3>Accounting & Finance</h3><p>Developing a strong foundation through ACCA studies.</p></article>
+          <article class="skill-card"><div class="skill-icon">⌘</div><h3>Technology</h3><p>Exploring digital tools and practical technology skills.</p></article>
+          <article class="skill-card"><div class="skill-icon">Aa</div><h3>English Communication</h3><p>Improving everyday English and spoken communication.</p></article>
+          <article class="skill-card"><div class="skill-icon">✧</div><h3>Problem Solving</h3><p>Learning to approach challenges with curiosity and care.</p></article>
+          <article class="skill-card"><div class="skill-icon">↗</div><h3>Personal Growth</h3><p>Building confidence through consistent learning.</p></article>
+          <article class="skill-card"><div class="skill-icon">◎</div><h3>Business Knowledge</h3><p>Learning how businesses operate and create value.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">My work</div>
+          <h2>Projects & achievements</h2>
+          <p>This section is ready for coursework, projects, certificates, and achievements as you add them.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card"><div><div class="number">01 / LEARNING</div><h3>ACCA Study Journey</h3><p>Documenting progress, accounting knowledge, and milestones throughout my ACCA studies.</p></div></article>
+          <article class="project-card"><div><div class="number">02 / PROJECTS</div><h3>More projects coming soon</h3><p>A space to showcase practical work, personal projects, and new achievements.</p></div></article>
+        </div>
+        <p class="project-note">Tip: Replace these sample cards with your real projects when you're ready.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-card">
+          <div>
+            <div class="eyebrow">Contact</div>
+            <h2>Let's connect.</h2>
+            <p>Have an opportunity, idea, or question? I'd be happy to hear from you.</p>
+          </div>
+          <!-- Add your email address or social profile link to this button when ready. -->
+          <a class="button primary" href="mailto:your.email@example.com">Email me <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> Rusara Sanudaya. All rights reserved.</span>
+      <span>Designed with curiosity & care.</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const navLinks = document.getElementById('navLinks');
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
